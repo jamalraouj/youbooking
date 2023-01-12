@@ -3,17 +3,18 @@ package com.youbooking.youbooking.controller.vm;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ResponseVm implements Serializable {
 
     private HttpStatus httpStatus;
     private String message;
-    private Object Data;
+    private List<Object> Data;
 
     public ResponseVm() {
     }
 
-    public ResponseVm(HttpStatus httpStatus, String message, Object data) {
+    public ResponseVm(HttpStatus httpStatus, String message, List<Object> data) {
         this.httpStatus = httpStatus;
         this.message = message;
         Data = data;
@@ -38,11 +39,11 @@ public class ResponseVm implements Serializable {
         this.message = message;
     }
 
-    public Object getData() {
-        return Data;
+    public void setData(List<Object> data) {
+        Data = data;
     }
 
-    public void setData(Object data) {
-        Data = data;
+    public List<Object> getData() {
+        return Data;
     }
 }

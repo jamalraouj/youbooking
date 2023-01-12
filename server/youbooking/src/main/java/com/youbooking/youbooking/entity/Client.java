@@ -11,12 +11,20 @@ import java.util.List;
 @Setter
 @Getter
 public class Client extends UserEntity{
+    public Client(String email, String password, boolean isActive) {
+        super(email, password, isActive , Role.CLIENT);
+
+    }
 
     @OneToMany
     private List<Reservation> reservationList;
 
+    public Client() {
 
-        public void addReservation(Reservation reservation){
+    }
+
+
+    public void addReservation(Reservation reservation){
         this.reservationList.add(reservation);
     }
 }

@@ -1,10 +1,9 @@
 package com.youbooking.youbooking.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youbooking.youbooking.classes.Message;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Setter
+@Getter
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +24,11 @@ public class Hotel {
     private String description;
     @OneToOne
     private Address address;
-    @OneToOne
+    @OneToOne(mappedBy = "hotel")
+    @JsonIgnore
     private Announcement announcement;
 //    @OneToMany(mappedBy ="hotel")//fetch = FetchType.EAGER
+//    @JsonIgnore
     @OneToMany//, cascade = CascadeType.ALL
     private List<Chamber> chamberList ;
     @Transient
@@ -39,53 +42,8 @@ public class Hotel {
         this.chamberList.add(chamber);
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public List<Chamber> getChamberList() {
-        return chamberList;
-    }
-
-    public void setChamberList(List<Chamber> chamberList) {
-        this.chamberList = chamberList;
-    }
-
-    public Message getMessage() {
-        return message;
-    }
-
-    public void setMessage(Message message) {
-        this.message = message;
-    }
 
 
 }

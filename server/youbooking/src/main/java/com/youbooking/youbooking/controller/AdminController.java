@@ -13,15 +13,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/youbooking/admin")
 public class AdminController {
-    @Autowired
-    AnnouncementService announcementService;
+//    @Autowired
+//    AnnouncementService announcementService;
 
-    @GetMapping("/get-all-announces")
-    public List<Announcement> getAllAnnounces(){
-        return announcementService.findAll();
-    }
-    @GetMapping("/get-all-announces/{id_prop}")
-    public List<Announcement> getAllAnnounces(@PathVariable Long id_prop){
-        return announcementService.getAnnouncesByProp(id_prop);
-    }
+//    @GetMapping("/get-all-announces")
+//    public List<Announcement> getAllAnnounces(){
+//        return announcementService.findAll();
+//    }
+//    @GetMapping("/get-all-announces/{id_prop}")
+//    public List<Announcement> getAllAnnounces(@PathVariable Long id_prop){
+//        return announcementService.getAnnouncesByProp(id_prop);
+//    }
 }

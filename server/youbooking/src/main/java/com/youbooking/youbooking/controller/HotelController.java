@@ -1,25 +1,25 @@
 package com.youbooking.youbooking.controller;
 
+import com.youbooking.youbooking.controller.vm.ResponseVm;
 import com.youbooking.youbooking.entity.Hotel;
 import com.youbooking.youbooking.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = {"/youbooking/hotel"})
 public class HotelController {
     @Autowired
     HotelService hotelService;
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity<List<Hotel>> getAll(){
-        System.out.println(true);
-        List<Hotel> hotels = hotelService.findAll();
-        return ResponseEntity.ok(hotels);
+    public List<Hotel> getAll(){
+        return hotelService.findAlls();
     }
     @GetMapping(path="/get/{id}")
     public Hotel getOne(@PathVariable Long id){

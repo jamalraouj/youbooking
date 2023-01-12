@@ -26,12 +26,12 @@ public class ReservationService implements IService<Reservation , Long> {
 
     public Reservation add(ReservationDTO reservationDTO) {
         System.out.println(reservationDTO);
-            Optional<Chamber> chamber = chamberRepository.findById(reservationDTO.getRoomId());
-            if (chamber.isPresent()){
-                Chamber chamber1 = reservationRepository.findChamberAndDateRange(chamber.get().getId() , reservationDTO.getStartDate() , reservationDTO.getEndDate());
-                Reservation reservation = new Reservation(chamber.get(), LocalDate.of(2023,01,07) , LocalDate.of(2023,01,10));
-                return reservationRepository.save(reservation);
-            }
+//            Optional<Chamber> chamber = chamberRepository.findById(reservationDTO.getRoomId());
+//            if (chamber.isPresent()){
+//                Chamber chamber1 = reservationRepository.findChamberAndDateRange(chamber.get().getId() , reservationDTO.getStartDate() , reservationDTO.getEndDate());
+//                Reservation reservation = new Reservation(chamber.get(), LocalDate.of(2023,01,07) , LocalDate.of(2023,01,10));
+//                return reservationRepository.save(reservation);
+//            }
             return null;
     }
 

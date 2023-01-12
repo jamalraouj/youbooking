@@ -15,4 +15,8 @@ public class AnnounceDTO implements Serializable {
 
     private String announceRef;
     private HotelDto hotel;
+
+    public AnnounceDTO(HotelDto hotel) {
+        this.hotel = hotel;
+    }
 }

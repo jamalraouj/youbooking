@@ -11,14 +11,13 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
-
 public class Proprietary extends UserEntity {
     public Proprietary(String email, String password, Boolean isActive) {
         super(email, password, isActive, Role.PROPRIETARY);
     }
 
-    @OneToMany
-    private List<Hotel> hotelList = new ArrayList<>();
+//    @OneToMany
+//    private List<Hotel> hotelList = new ArrayList<>();
 
     @OneToMany
     private List<Announcement> announcementList = new ArrayList<>();
@@ -32,8 +31,8 @@ public class Proprietary extends UserEntity {
         this.announcementList.add(announcement);
     }
 
-    public void addHotel(Hotel hotel){
-        this.hotelList.add(hotel);
-    }
+//    public void addHotel(Hotel hotel){
+//        this.hotelList.add(hotel);
+//    }
 
 }

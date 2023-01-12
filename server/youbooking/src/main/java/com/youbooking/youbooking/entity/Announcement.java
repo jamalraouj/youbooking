@@ -19,13 +19,12 @@ public class Announcement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String ref;
-    private LocalDate localDate ;
-//    @ManyToOne(cascade=CascadeType.PERSIST)
-//@JoinColumn(name="cidade_id")
-    private boolean is_accept = false;
-    @OneToOne(orphanRemoval = true ,cascade = CascadeType.REMOVE)
-    private Hotel hotel;
+    private LocalDate localDate = LocalDate.now();
+    private boolean is_accept = true;
 
+    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 
     public Announcement(String ref, Hotel hotel) {
         this.ref = ref;

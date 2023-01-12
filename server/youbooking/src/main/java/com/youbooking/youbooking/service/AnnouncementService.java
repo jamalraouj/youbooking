@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -34,9 +35,9 @@ public class AnnouncementService implements IService<Announcement,Long> {
     public Announcement add(Announcement announcement){
         return  null;
     }
-    @Transactional
-    public Announcement add(AnnounceDTO announceDTO , Principal principal){
-        Announcement announcement = new Announcement();
+
+    public Announcement add(Principal principal,AnnounceDTO announceDTO){
+        Optional<Announcement> announcement = Optional.of(new Announcement());
         Message message = new Message();
         if(announceDTO != new AnnounceDTO()){
             if(announceDTO.getAnnounceRef() == null || announceDTO.getAnnounceRef()=="") {
@@ -51,16 +52,19 @@ public class AnnouncementService implements IService<Announcement,Long> {
                             BeanUtils.copyProperties(announceDTO.getHotel(), hotel);
                             BeanUtils.copyProperties(announceDTO.getHotel().getAddress(), address);
 
-                            announcement.setRef(announceDTO.getAnnounceRef());
+                            announcement.get().setRef(announceDTO.getAnnounceRef());
                             addressRepository.save(address);
                             hotel.setAddress(address);
+
                             hotelRepository.save(hotel);
-                            announcement.setHotel(hotel);
-                            announcementRepository.save(announcement);
+                            announcement.get().setHotel(hotel);
+                            announcementRepository.save(announcement.get());
                             Proprietary proprietary = proprietaryRepository.findByEmail(principal.getName());
-                            proprietary.addAnnouncement(announcement);
+                            proprietary.addAnnouncement(announcement.get());
 
                             proprietaryRepository.save(proprietary);
+                            message.setMessage("SUCCESS");
+                            message.setState("SUCCESS");
 
                     }else {
                         message.setMessage("some details of hotel Address is null");
@@ -82,8 +86,9 @@ public class AnnouncementService implements IService<Announcement,Long> {
             message.setMessage("data is null");
             message.setState("ERROR");
         }
-        announcement.setMessage(message);
-        return announcement;
+        announcement.get().setMessage(message);
+        System.out.println(announcement.get());
+        return announcement.get();
     }
 
 

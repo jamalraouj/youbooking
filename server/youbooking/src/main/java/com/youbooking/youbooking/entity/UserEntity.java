@@ -1,9 +1,7 @@
 package com.youbooking.youbooking.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.youbooking.youbooking.classes.Message;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class UserEntity {
     @Id
@@ -22,10 +21,13 @@ public class UserEntity {
     private boolean isActive;
     private Role role;
 
-    public UserEntity(String password, String email, boolean isActive, Role role) {
-        this.password = password;
+    public UserEntity(String email ,String password, boolean isActive, Role role) {
         this.email = email;
+        this.password = password;
         this.isActive = isActive;
         this.role = role;
     }
+
+    @Transient
+    private Message message;
 }

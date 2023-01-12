@@ -31,7 +31,7 @@ public class HotelConfig {
 //            h1.addChamber(c1);
 //            h1.addChamber(c2);
 
-            hotelRepository.saveAll(List.of(h1,h2,h3));
+//            hotelRepository.saveAll(List.of(h1,h2,h3));
         };
     }
 

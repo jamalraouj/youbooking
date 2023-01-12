@@ -17,9 +17,6 @@ public class Admin extends UserEntity {
         super(email, password, isActive, Role.ADMIN);
     }
 
-    @OneToMany
-    private List<Announcement> announcementList = new ArrayList<>();
-
     public Admin() {
 
     }
