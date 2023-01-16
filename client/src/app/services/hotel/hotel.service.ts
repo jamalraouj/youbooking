@@ -13,13 +13,10 @@ export class HotelService {
   constructor(private http: HttpClient) { }
 
   getData() {
-
-    return this.http.get('http://localhost:8080/youbooking/hotel/').subscribe(
-
+     return this.http.get('http://localhost:8080/youbooking/hotel/').subscribe(
     );
   }
   public getHotels(): Observable<Hotel[]> {
-
     return this.http.get<Hotel[]>(`${this.apiUrl}`+'/');
   }
   getAllHotel():Observable<any>{
@@ -30,4 +27,6 @@ export class HotelService {
     return this.http.get<Hotel>(`${this.apiUrl}/get/`+id);
 
   }
+
+
 }

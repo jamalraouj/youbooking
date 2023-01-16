@@ -1,10 +1,11 @@
 import {Component, Inject, Injectable, OnInit} from '@angular/core';
 import {Hotel} from "../../models/hotel.model";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {HotelService} from "../services/hotel/hotel.service";
 import * as QueryString from "querystring";
 import {ActivatedRoute} from "@angular/router";
 import {Chamber} from "../../models/chamber.model";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-hotel',
@@ -14,11 +15,20 @@ import {Chamber} from "../../models/chamber.model";
 
 export class HotelComponent implements OnInit {
   private queryParams: any;
-
+  baseUrl = 'http://localhost:8080/youbooking';
   id!: number;
+  data!:any;
    hotel!: Hotel;
+  userGroup: FormGroup;
+  // chamberType!:ChamberType;
 
-  constructor( private hotelService:HotelService , private route: ActivatedRoute ) {}
+  constructor( private hotelService:HotelService , private route: ActivatedRoute , private formBuild: FormBuilder ,private http: HttpClient) {
+    this.userGroup = this.formBuild.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      chamberType:['' , Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.id =this.route.snapshot.params['id']
@@ -43,4 +53,16 @@ export class HotelComponent implements OnInit {
     // );
   }
 
+  reserve() {
+    console.log(this.userGroup.value)
+    this.http.post(this.baseUrl + '/hotel/1/reserve', this.userGroup.value).subscribe(
+      data => { this.data = data ;
+        // console.log(this.data)
+        // this.router.navigate(['']);
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
 }

@@ -3,4 +3,6 @@ export class Address {
     address?:string;
     city?:string;
     country?:string;
+    constructor() {
+    }
 }

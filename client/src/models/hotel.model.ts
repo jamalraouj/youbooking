@@ -6,7 +6,7 @@ export class Hotel {
     id?: any;
     name?: string;
     description?: string;
-    address?:Address;
+    address?:Address|undefined;
     announce?:Announcement;
     chamberList?:Chamber[];
 

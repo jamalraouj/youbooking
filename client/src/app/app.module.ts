@@ -22,6 +22,15 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './admin/admin.component';
+import { AdminnavbarComponent } from './adminlayout/adminnavbar/adminnavbar.component';
+import { AdminsidebarComponent } from './adminlayout/adminsidebar/adminsidebar.component';
+import { AdminfooterComponent } from './adminlayout/adminfooter/adminfooter.component';
+import { AdminhotelComponent } from './c-admin/adminhotel/adminhotel.component';
+import { ShowhotelComponent } from './c-admin/showhotel/showhotel.component';
+import { SignupComponent } from './signup/signup.component';
+import { AddAnnounceComponent } from './announce/add-announce/add-announce.component';
+import { UpdateHotelComponent } from './c-admin/update-hotel/update-hotel.component';
+import { MyAnnounceComponent } from './announce/my-announce/my-announce.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +42,16 @@ import { AdminComponent } from './admin/admin.component';
     LoginComponent,
     ChambersComponent,
     HotelComponent,
-    AdminComponent
+    AdminComponent,
+    AdminnavbarComponent,
+    AdminsidebarComponent,
+    AdminfooterComponent,
+    AdminhotelComponent,
+    ShowhotelComponent,
+    SignupComponent,
+    AddAnnounceComponent,
+    UpdateHotelComponent,
+    MyAnnounceComponent
   ],
     imports: [
         BrowserModule,

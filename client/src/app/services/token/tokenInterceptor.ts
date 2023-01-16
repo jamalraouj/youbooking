@@ -12,9 +12,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
     // Add the token to the Authorization header
     request = request.clone({
-      // setHeaders: {
-      //   Authorization: `Bearer ${this.tokenService.getToken()}`
-      // }
+      setHeaders: {
+        Authorization: `Bearer ${this.tokenService.getToken()}`
+      }
     });
 
     return next.handle(request);
