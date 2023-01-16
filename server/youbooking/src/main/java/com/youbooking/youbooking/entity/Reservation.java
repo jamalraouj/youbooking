@@ -1,8 +1,10 @@
 package com.youbooking.youbooking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

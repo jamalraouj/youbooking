@@ -30,10 +30,7 @@ public class ChamberController {
         return ResponseEntity.ok(chamberService.add(chamber , id_hotel));
     }
 
-    @PostMapping("/reserve")
-    public ResponseEntity<Reservation> reserve(@RequestBody ReservationDTO reservationDTO){
-        return ResponseEntity.ok(reservationService.add(reservationDTO));
-    }
+
     @GetMapping("/all/reserve")
     public ResponseEntity<List<Reservation>> allreserve(){
         return ResponseEntity.ok(reservationService.findAll());

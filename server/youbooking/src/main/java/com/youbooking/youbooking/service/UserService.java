@@ -1,5 +1,6 @@
 package com.youbooking.youbooking.service;
 
+import com.youbooking.youbooking.DtoToEntity;
 import com.youbooking.youbooking.classes.Message;
 import com.youbooking.youbooking.entity.Client;
 import com.youbooking.youbooking.entity.Proprietary;
@@ -49,12 +50,19 @@ public class UserService implements UserDetailsService {
         return adminOptional.get();
     }
     public UserEntity register(RegisterDTO registerDTO){
-        if(registerDTO.isAreYouProprietary()){
+            Optional<UserEntity> user =  userRepository.findUserEntityByEmail(registerDTO.getEmail());
+            if (user.isPresent()){
+                UserEntity u= DtoToEntity.userDtoToUser(registerDTO);
+              u.setMessage(new Message("ERROR","This Email is exist"));
+                return u;
+            }
+
+        if(registerDTO.isIshotelmanager()){
             Proprietary proprietary = new Proprietary(registerDTO.getEmail() , registerDTO.getPassword() , true );
             userRepository.save(proprietary);
             return proprietary;
         }else {
-            Client client = new Client(registerDTO.getEmail() , registerDTO.getPassword() ,true);
+            Client client = new Client(registerDTO.getName() , registerDTO.getLastName() , registerDTO.getEmail() , registerDTO.getPassword() ,true);
             userRepository.save(client);
             return client;
         }

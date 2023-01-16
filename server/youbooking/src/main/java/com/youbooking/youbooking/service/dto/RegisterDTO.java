@@ -11,11 +11,15 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class RegisterDTO {
+    private String name;
+    private String lastName;
     private String email;
     private String password;
-    private boolean areYouProprietary = false;
+    private boolean ishotelmanager = false;
 
-    public RegisterDTO(String email, String password) {
+    public RegisterDTO(String name, String lastName, String email, String password) {
+        this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }

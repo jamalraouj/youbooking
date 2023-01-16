@@ -4,6 +4,8 @@ import com.youbooking.youbooking.controller.vm.ResponseVm;
 import com.youbooking.youbooking.entity.Announcement;
 import com.youbooking.youbooking.entity.Chamber;
 import com.youbooking.youbooking.entity.Hotel;
+import com.youbooking.youbooking.entity.Reservation;
+import com.youbooking.youbooking.repository.ReservationRepository;
 import com.youbooking.youbooking.service.AnnouncementService;
 import com.youbooking.youbooking.service.ChamberService;
 import com.youbooking.youbooking.service.HotelService;
@@ -19,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/youbooking/proprietary")
 public class ProprietaryController {
     @Autowired
@@ -28,6 +30,10 @@ public class ProprietaryController {
     ChamberService chamberService;
     @Autowired
     AnnouncementService announcementService;
+
+    @Autowired
+    ReservationRepository reservationRepository;
+
     @PostMapping("/add-hotel")
     public Hotel addHotel(@RequestBody Hotel hotel ){
         return hotelService.add(hotel);
@@ -61,5 +67,10 @@ public class ProprietaryController {
          Announcement announcement = announcementService.add(principal,announceDTO );
         System.out.println("true");
          return ResponseEntity.ok(new ResponseVm(HttpStatus.ACCEPTED , "SUCCESS", Collections.singletonList(announcement)));
+    }
+    @GetMapping("/get-all-reservation")
+    @ResponseBody
+    public List<Reservation> getAllReservation(){
+        return reservationRepository.findAll();
     }
 }

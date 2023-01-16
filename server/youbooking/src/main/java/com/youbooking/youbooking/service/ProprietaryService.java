@@ -1,12 +1,16 @@
 package com.youbooking.youbooking.service;
 
 import com.youbooking.youbooking.entity.Proprietary;
+import com.youbooking.youbooking.repository.ProprietaryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProprietaryService implements IService<Proprietary , Long> {
+    @Autowired
+    ProprietaryRepository proprietaryRepository;
     @Override
     public Proprietary add(Proprietary proprietary) {
         return null;
@@ -29,6 +33,6 @@ public class ProprietaryService implements IService<Proprietary , Long> {
 
     @Override
     public List<Proprietary> findAll() {
-        return null;
+        return proprietaryRepository.findAll();
     }
 }

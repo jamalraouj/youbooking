@@ -22,14 +22,14 @@ public class Hotel {
     private Long id;
     private String name;
     private String description;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Address address;
     @OneToOne(mappedBy = "hotel")
     @JsonIgnore
     private Announcement announcement;
 //    @OneToMany(mappedBy ="hotel")//fetch = FetchType.EAGER
 //    @JsonIgnore
-    @OneToMany//, cascade = CascadeType.ALL
+    @OneToMany( cascade = CascadeType.REMOVE)
     private List<Chamber> chamberList ;
     @Transient
     private Message message;

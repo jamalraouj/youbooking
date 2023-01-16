@@ -1,8 +1,10 @@
 package com.youbooking.youbooking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,9 +20,11 @@ public class Chamber {
     private String description;
     private String image;
     private ChamberType chamberType;
-    @ManyToOne //(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+    @OneToMany
+    private List<Reservation> reservation;
 
 
 

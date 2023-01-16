@@ -11,8 +11,8 @@ import java.util.List;
 @Setter
 @Getter
 public class Client extends UserEntity{
-    public Client(String email, String password, boolean isActive) {
-        super(email, password, isActive , Role.CLIENT);
+    public Client(String name , String lastName , String email, String password, boolean isActive) {
+        super(name,lastName , email, password, isActive , Role.CLIENT);
 
     }
 

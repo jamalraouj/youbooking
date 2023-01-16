@@ -38,12 +38,15 @@ public class SecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception{
 
         http
-                .csrf().disable().cors().disable()
+                .csrf().disable().cors().disable()//announce
                 .authorizeRequests()//.anyRequest().permitAll();
 //                .antMatchers("/**/auth/addProduct","/**/product/addproduct","/**/product/add","/**/product/new").hasRole(Role.ADMIN.toString())
                 .antMatchers("/**/auth/**").permitAll()
-                .antMatchers("/**/proprietary/**").hasRole(Role.PROPRIETARY.toString())
+//                .antMatchers("/**/proprietary/**").hasRole(Role.PROPRIETARY.toString())
                 .antMatchers("/**/chambers/**").permitAll()
+//                .antMatchers("/**/admin/**").hasRole(Role.ADMIN.toString())
+                .antMatchers("/**/reserve/**").hasRole(Role.CLIENT.toString())
+                .antMatchers("/**/announce/**").hasRole(Role.PROPRIETARY.toString())
                 .antMatchers("/**/client/me" ,"/**/client/profile" ,"/**/client/my_profile").hasRole(Role.CLIENT.toString())
                 .antMatchers("/**/client/addClient").permitAll()
                 .antMatchers("/**/client/Clients","/**/client/","/**/client/all","/**/client/clients" , "/**/client/{client_id}").hasRole(Role.ADMIN.toString())

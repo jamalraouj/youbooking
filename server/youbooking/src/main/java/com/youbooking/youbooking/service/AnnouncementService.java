@@ -12,12 +12,13 @@ import com.youbooking.youbooking.service.dto.HotelDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Stream;
 
 @Service
 public class AnnouncementService implements IService<Announcement,Long> {
@@ -42,7 +43,9 @@ public class AnnouncementService implements IService<Announcement,Long> {
         if(announceDTO != new AnnounceDTO()){
             if(announceDTO.getAnnounceRef() == null || announceDTO.getAnnounceRef()=="") {
                 announceDTO.setAnnounceRef(UUID.randomUUID().toString());
-            }if (!announceDTO.getHotel().equals(new HotelDto())){
+            }
+            System.out.println(announceDTO+"PP");
+            if(!announceDTO.getHotel().equals(new HotelDto())){
                 if (announceDTO.getHotel().getName() != null && announceDTO.getHotel().getName()!="" && announceDTO.getHotel().getDescription() != null && announceDTO.getHotel().getDescription()!="") {
                     if(announceDTO.getHotel().getAddress()!=new AddressDto()) {
                         if (announceDTO.getHotel().getAddress().getAddress() != "" && announceDTO.getHotel().getAddress().getAddress()!=null && announceDTO.getHotel().getAddress().getCity() != "" && announceDTO.getHotel().getAddress().getCountry() != ""){
@@ -58,10 +61,10 @@ public class AnnouncementService implements IService<Announcement,Long> {
 
                             hotelRepository.save(hotel);
                             announcement.get().setHotel(hotel);
+                            Proprietary proprietary = proprietaryRepository.findByEmail(principal.getName());//principal.getName()
+//                            announcement.get().setProprietary(proprietar);
                             announcementRepository.save(announcement.get());
-                            Proprietary proprietary = proprietaryRepository.findByEmail(principal.getName());
                             proprietary.addAnnouncement(announcement.get());
-
                             proprietaryRepository.save(proprietary);
                             message.setMessage("SUCCESS");
                             message.setState("SUCCESS");
@@ -132,7 +135,39 @@ public class AnnouncementService implements IService<Announcement,Long> {
 //    }
 
     @Override
-    public boolean delete(Long i) {
+    public boolean delete(Long id) {
+        Optional<Announcement> a = announcementRepository.findById(id);
+        if (a.isPresent()){
+
+            announcementRepository.deleteById(id);
+            System.out.println(true+"qqqq");
+            return true;
+        }
+        return false;
+    }
+    public boolean delete(Long id_prop ,Long id_ann) {
+        Optional<Proprietary> proprietary = proprietaryRepository.findById(id_prop);
+        AtomicReference<Announcement> announcement = new AtomicReference<>(new Announcement());
+        if(proprietary.isPresent()){
+            proprietary.get().getAnnouncementList().stream().filter(ann -> ann.getId() == id_ann)
+                   .forEach(announce->{
+                       announcement.set(announce);
+                   });
+            proprietary.get().getAnnouncementList().remove(announcement.get());
+            announcementRepository.delete(announcement.get());
+            proprietaryRepository.save(proprietary.get());
+            return true;
+
+        }
+//
+//        System.out.println("ooooooooo"+announcement.get());
+//        Optional<Announcement> a = announcementRepository.findById(id);
+//        if (a.isPresent()){
+//
+//            announcementRepository.deleteById(id);
+//            System.out.println(true+"qqqq");
+//            return true;
+//        }
         return false;
     }
 
@@ -148,10 +183,31 @@ public class AnnouncementService implements IService<Announcement,Long> {
 
     @Override
     public List<Announcement> findAll() {
-        return null;
+        return announcementRepository.findAll();
     }
 
     public List<Announcement> getAnnouncesByProp(Long id_prop) {
         return null;
+    }
+
+    public boolean updateAccepted(boolean accept, Long id) {
+       Optional<Announcement> announcement =  announcementRepository.findById(id);
+       if (announcement.isPresent()){
+           announcement.get().set_accept(accept);
+           announcementRepository.save(announcement.get());
+           return true;
+       }
+       else return false;
+    }
+
+    public Announcement getById(Long id) {
+       Optional<Announcement> announcement =  announcementRepository.findById(id);
+       if(announcement.isPresent()){
+           return announcement.get();
+       }
+       else {
+           announcement.get().getMessage().setMessage("ERROR : Not found");
+           return announcement.get();
+       }
     }
 }

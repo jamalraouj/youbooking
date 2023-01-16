@@ -42,9 +42,9 @@ public class AuthenticationController {
         }
         return ResponseEntity.ok(new ResponseVm(HttpStatus.BAD_REQUEST , user.get().getMessage().getMessage()));
     }
-    @PostMapping("/register")
+    @PostMapping("/signup")
     @ResponseBody
-    public ResponseEntity<ResponseVm> register(@Valid @RequestBody RegisterDTO registerDTO){
+    public ResponseEntity<ResponseVm> signup(@Valid @RequestBody RegisterDTO registerDTO){
 
         UserEntity userEntity = userService.register(registerDTO);
        return ResponseEntity.ok(new ResponseVm(HttpStatus.ACCEPTED , "Success" , Collections.singletonList(userEntity)));
